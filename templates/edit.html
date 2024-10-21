@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Page</title>
+</head>
+<body>
+    <h1>Editar {{.Title}}</h1>
+    <form method="POST" action="/save/{{.Title}}">
+        <textarea name="body">{{.Body}}</textarea>
+        <br>
+        <input type="submit" value="Guardar">
+    </form>
+</body>
+</html>
