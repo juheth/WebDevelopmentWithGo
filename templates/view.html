@@ -33,7 +33,7 @@
 </head>
 <body>
     <h1>{{.Title}}</h1>
-    <div class="content">{{printf "%s" .Body}}</div>
+    <div class="content">{{.BodyString}}</div>
     <a class="edit-link" href="/edit/{{.Title}}">Edit</a>
 </body>
 </html>

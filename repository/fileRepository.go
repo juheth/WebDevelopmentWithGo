@@ -3,22 +3,26 @@ package repository
 import (
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/juheth/WebDevelopmentWithGo.git/models"
 )
 
-func SavePageToFile(p *models.Page) error {
-	fileName := p.Title + ".txt"
-	err := os.WriteFile(fileName, p.Body, 0600)
-	if err != nil {
-		log.Printf("Failed to write file %s: %v", fileName, err)
-		return err
+const dataDir = "data"
+
+func init() {
+	if err := os.MkdirAll(dataDir, 0755); err != nil {
+		log.Fatal(err)
 	}
-	return nil
+}
+
+func SavePageToFile(p *models.Page) error {
+	filename := filepath.Join(dataDir, p.Title+".txt")
+	return os.WriteFile(filename, p.Body, 0600)
 }
 
 func LoadPage(title string) (*models.Page, error) {
-	filename := title + ".txt"
+	filename := filepath.Join(dataDir, title+".txt")
 	body, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
