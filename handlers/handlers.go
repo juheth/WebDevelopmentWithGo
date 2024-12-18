@@ -40,6 +40,8 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Printf("Template error: %v", err)
 	}
+
+	renderTemplates(w, "view", p)
 }
 
 func EditHandler(w http.ResponseWriter, r *http.Request) {
@@ -56,6 +58,13 @@ func EditHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Printf("Template error: %v", err)
 	}
+
+	renderTemplates(w, "edit", p)
+}
+
+func renderTemplates(w http.ResponseWriter, tmpl string, p *models.Page) {
+	t, _ := template.ParseFiles(tmpl + ".html")
+	t.Execute(w, p)
 }
 
 func SaveHandler(w http.ResponseWriter, r *http.Request) {
